@@ -11,7 +11,7 @@ using Portfolio_Bulkyweb.Data;
 namespace Portfolio_Bulkyweb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230927083822_initialMigration")]
+    [Migration("20230927114035_initialMigration")]
     partial class initialMigration
     {
         /// <inheritdoc />
