@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Portfolio_Bulkyweb.Models;
+using Bulky.Models;
 
-namespace Portfolio_Bulkyweb.Data
+namespace Bulky.DataAccess.Data
 {
     public class ApplicationDbContext:DbContext
     {

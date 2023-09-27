@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Portfolio_Bulkyweb.Data;
-using Portfolio_Bulkyweb.Models;
-
+﻿using Bulky.DataAccess.Data;
+using Microsoft.AspNetCore.Mvc;
+using Bulky.Models;
 namespace Portfolio_Bulkyweb.Controllers
 {
     public class CategoryController : Controller
