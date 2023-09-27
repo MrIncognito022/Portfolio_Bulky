@@ -7,7 +7,6 @@ namespace Portfolio_Bulkyweb.Controllers
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _db;
-
         public CategoryController(ApplicationDbContext db)
         {
             _db = db;
@@ -38,11 +37,11 @@ namespace Portfolio_Bulkyweb.Controllers
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
             return View(obj);
         }
-
         public IActionResult Edit(int? id)
         {
             if (id == null||id==0) 
@@ -60,7 +59,6 @@ namespace Portfolio_Bulkyweb.Controllers
 
             return View();
         }
-
         [HttpPost]
         public IActionResult Edit(Category obj)
         {
@@ -68,12 +66,11 @@ namespace Portfolio_Bulkyweb.Controllers
             {
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
             }
             return View(obj);
-
         }
-
         [HttpGet]
         public IActionResult Delete(int? id)
         {
@@ -89,9 +86,7 @@ namespace Portfolio_Bulkyweb.Controllers
                 return NotFound();
             }
             return View(categoryFromDb);
-
         }
-
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
@@ -102,9 +97,8 @@ namespace Portfolio_Bulkyweb.Controllers
             }
             _db.Categories.Remove(obj);
             _db.SaveChanges();
-
+            TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
-
         }
     }
 }
