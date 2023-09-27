@@ -11,8 +11,8 @@ using Portfolio_Bulkyweb.Data;
 namespace Portfolio_Bulkyweb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230924204252_SeedCategoryMigration")]
-    partial class SeedCategoryMigration
+    [Migration("20230927083822_initialMigration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,8 @@ namespace Portfolio_Bulkyweb.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
