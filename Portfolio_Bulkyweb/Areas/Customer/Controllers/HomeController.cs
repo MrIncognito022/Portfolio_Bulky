@@ -2,8 +2,9 @@
 using Portfolio_Bulkyweb.Models;
 using System.Diagnostics;
 
-namespace Portfolio_Bulkyweb.Controllers
+namespace Portfolio_Bulkyweb.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

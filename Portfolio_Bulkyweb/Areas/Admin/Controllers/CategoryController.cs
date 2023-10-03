@@ -4,8 +4,9 @@ using Bulky.Models;
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.DataAccess.Repository;
 
-namespace Portfolio_Bulkyweb.Controllers
+namespace Portfolio_Bulkyweb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -47,14 +48,14 @@ namespace Portfolio_Bulkyweb.Controllers
         }
         public IActionResult Edit(int? id)
         {
-            if (id == null||id==0) 
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
-           Category categoryFromDb =  _unitOfWork.Category.Get(c => c.Id == id);
+            Category categoryFromDb = _unitOfWork.Category.Get(c => c.Id == id);
             //_db.Categories.Find(id);
 
-            if(categoryFromDb  == null)
+            if (categoryFromDb == null)
             {
                 return NotFound();
             }
@@ -65,7 +66,7 @@ namespace Portfolio_Bulkyweb.Controllers
         [HttpPost]
         public IActionResult Edit(Category obj)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _unitOfWork.Category.Update(obj);
                 _unitOfWork.Save();
@@ -93,8 +94,8 @@ namespace Portfolio_Bulkyweb.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
-            Category? obj = _unitOfWork.Category.Get(x=>x.Id == id);
-            if (obj == null )
+            Category? obj = _unitOfWork.Category.Get(x => x.Id == id);
+            if (obj == null)
             {
                 return NotFound();
             }
