@@ -26,7 +26,7 @@ namespace Portfolio_Bulkyweb.Areas.Admin.Controllers
             return View(objProductList);
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
             IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
                u => new SelectListItem
@@ -43,10 +43,21 @@ namespace Portfolio_Bulkyweb.Areas.Admin.Controllers
                 Product = new Product()
             };
 
-            return View(productVM);
+            if (id == null || id == 0)
+            {
+                //Create
+                return View(productVM);
+            }
+            else
+            {
+                //update
+                productVM.Product = _unitOfWork.Product.Get(u => u.Id == id);
+                return View(productVM);
+            }
         }
+
         [HttpPost]
-        public IActionResult Create(ProductVM productVM)
+        public IActionResult Upsert(ProductVM productVM, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +76,7 @@ namespace Portfolio_Bulkyweb.Areas.Admin.Controllers
                    Value = u.Id.ToString()
                });
                 productVM.CategoryList = CategoryList;
-                return View(productVM); 
+                return View(productVM);
             }
         }
         public IActionResult Edit(int? id)
