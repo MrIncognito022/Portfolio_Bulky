@@ -46,16 +46,27 @@ namespace Portfolio_Bulkyweb.Areas.Admin.Controllers
             return View(productVM);
         }
         [HttpPost]
-        public IActionResult Create(ProductVM obj)
+        public IActionResult Create(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(obj.Product);
+                _unitOfWork.Product.Add(productVM.Product);
                 _unitOfWork.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            //This code is to populate dropdown in case of modelState fail
+            else
+            {
+                IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
+               u => new SelectListItem
+               {
+                   Text = u.Name,
+                   Value = u.Id.ToString()
+               });
+                productVM.CategoryList = CategoryList;
+                return View(productVM); 
+            }
         }
         public IActionResult Edit(int? id)
         {
