@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Portfolio_Bulkyweb.Models;
+using Bulky.Models;
 using System.Diagnostics;
 
 namespace Portfolio_Bulkyweb.Areas.Customer.Controllers
