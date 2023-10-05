@@ -11,11 +11,10 @@ namespace Bulky.DataAccess.Repository.IRepository
     {
         //Let say T = Category
 
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(string? includeProperties = null);
         //Get Indiviual Element where Expression respresents a LinQ Expression like (u => u.id = Id)
-        T Get(Expression<Func<T, bool>> filter);
+        T Get(Expression<Func<T, bool>> filter, string? includeProperties = null);
         void Add(T entity);
-        void Update(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
     }

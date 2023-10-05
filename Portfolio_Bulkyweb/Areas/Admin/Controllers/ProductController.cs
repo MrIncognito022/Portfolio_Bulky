@@ -23,7 +23,7 @@ namespace Portfolio_Bulkyweb.Areas.Admin.Controllers
         public IActionResult Index()
         {
             //List<Product> objProductList = _categoryRepo.GetAll().ToList();
-            List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
+            List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties:"Category").ToList();
             //Retrieving list of Category to populate dropdown using SelectListItem
 
             return View(objProductList);
