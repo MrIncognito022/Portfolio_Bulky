@@ -20,6 +20,8 @@ namespace Portfolio_Bulkyweb.Areas.Admin.Controllers
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
         }
+
+        #region Index 
         public IActionResult Index()
         {
             //List<Product> objProductList = _categoryRepo.GetAll().ToList();
@@ -28,6 +30,10 @@ namespace Portfolio_Bulkyweb.Areas.Admin.Controllers
 
             return View(objProductList);
         }
+        #endregion
+
+        #region Upsert Get
+
         [HttpGet]
         public IActionResult Upsert(int? id)
         {
@@ -59,6 +65,7 @@ namespace Portfolio_Bulkyweb.Areas.Admin.Controllers
             }
         }
 
+        #endregion
 
         #region Upsert Post
         [HttpPost]
@@ -115,36 +122,7 @@ namespace Portfolio_Bulkyweb.Areas.Admin.Controllers
         }
         #endregion
 
-
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Product categoryFromDb = _unitOfWork.Product.Get(c => c.Id == id);
-            //_db.Categories.Find(id);
-
-            if (categoryFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(categoryFromDb);
-
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Edit(Product obj)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Product.Update(obj);
-                _unitOfWork.Save();
-                TempData["success"] = "Product updated successfully";
-                return RedirectToAction("Index");
-            }
-            return View(obj);
-        }
+        #region Delete Get
         [HttpGet]
         public IActionResult Delete(int? id)
         {
@@ -161,6 +139,11 @@ namespace Portfolio_Bulkyweb.Areas.Admin.Controllers
             }
             return View(categoryFromDb);
         }
+
+        #endregion
+
+        #region DeletePost
+
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
@@ -174,5 +157,16 @@ namespace Portfolio_Bulkyweb.Areas.Admin.Controllers
             TempData["success"] = "Product deleted successfully";
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region API Calls
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
+            return Json(new { data = objProductList});
+        }
+        #endregion
     }
 }
